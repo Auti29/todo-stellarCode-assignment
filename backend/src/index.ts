@@ -4,6 +4,7 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import cors from "cors";
 import authMiddleware, { type authRequest } from "./middlewares/authMiddleware.js";
 import { TodoModel, UserModel } from "./db.js";
 dotenv.config();
@@ -14,6 +15,7 @@ const PORT = process.env.PORT;
 const app = express();
 
 app.use(express.json());
+app.use(cors());
 
 app.post('/api/v1/signup', async (req: Request, res: Response) => {
 
@@ -118,7 +120,7 @@ app.get('/api/v1/todos', authMiddleware,  async (req: Request, res: Response) =>
         
         const todos = await TodoModel.find({
             userId
-        });
+        }).populate({path: "userId", select: "username"});
 
         return res.status(200).json({
             message: "success", 
@@ -153,8 +155,7 @@ app.post('/api/v1/todos', authMiddleware, async(req: Request, res: Response) => 
 
         return res.status(200).json({
             message:"todo created successfully!!", 
-            todoId: createdTodo._id, 
-            title:createdTodo.title
+            createdTodo
         });
 
     } catch(e) {
