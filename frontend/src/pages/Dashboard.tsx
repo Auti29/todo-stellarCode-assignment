@@ -17,7 +17,6 @@ export interface TodoInterface {
 
 export default function Dashboard() {
     const [todos, setTodos] = useState<TodoInterface[]>([]);
-    const [username, setUsername] = useState<string>("");
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -37,14 +36,13 @@ export default function Dashboard() {
             });
             const data = res.data;
             setTodos(data.todos);
-            setUsername(data.todos[0].userId.username);
         }
         fetchTodos();
     }, [navigate]);
 
     return (
         <div className="h-[100vh] w-[100vw] flex flex-col">
-            <TopBar  username ={username}/>
+            <TopBar />
             <div className="mt-5">
                 <TodosSection todos={todos} setTodos={setTodos}/>
             </div>

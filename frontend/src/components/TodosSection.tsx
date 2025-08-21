@@ -3,14 +3,12 @@ import type { TodoInterface } from "../pages/Dashboard";
 import AddTodo from "./ui/AddTodo";
 import CurrentTodos from "./ui/CurrentTodos";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 const BE_URL = import.meta.env.VITE_BE_API_URL;
 
 
 export default function TodosSection({todos, setTodos}: {todos: TodoInterface[], setTodos: Dispatch<SetStateAction<TodoInterface[]>>}) {
     const [title, setTitle] = useState<string>("");
     const [description , setDescription] = useState<string>("");
-    const navigate = useNavigate();
 
     async function handleAddtodo() {
         if(title.length == 0){
@@ -22,11 +20,6 @@ export default function TodosSection({todos, setTodos}: {todos: TodoInterface[],
             return;
         }
         const token = localStorage.getItem('token');
-        if(!token || typeof(token) !== "string"){
-            alert("Login to add todo!!");
-            navigate("/signin");
-            return;
-        }
         try{
             const res = await axios.post(`${BE_URL}/api/v1/todos`, {
                 title, 

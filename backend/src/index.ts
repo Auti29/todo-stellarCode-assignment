@@ -112,7 +112,34 @@ app.post('/api/v1/signin', async (req: Request, res: Response) => {
         });
     }
 
-})
+});
+
+
+app.get('/api/v1/user', authMiddleware, async (req: Request, res: Response) => {
+    const userId = (req as authRequest).userId;
+    try{
+
+        const user = await UserModel.findOne({
+            _id: userId
+        });
+
+        if(!user){
+            return res.status(403).json({
+                message: "unauthorized, no user found!!"
+            });
+        }
+
+        return res.status(200).json({
+            message: "success!!", 
+            user
+        });
+    }catch(e){
+        console.log("error on server: ", e);
+        return res.status(500).json({
+            message: "internal server error!!"
+        });
+    }
+}); 
 
 app.get('/api/v1/todos', authMiddleware,  async (req: Request, res: Response) => {
     try{
@@ -121,6 +148,7 @@ app.get('/api/v1/todos', authMiddleware,  async (req: Request, res: Response) =>
         const todos = await TodoModel.find({
             userId
         }).populate({path: "userId", select: "username"});
+
 
         return res.status(200).json({
             message: "success", 

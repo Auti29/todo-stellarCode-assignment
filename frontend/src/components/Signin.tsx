@@ -33,7 +33,7 @@ export default function Signin() {
             if(status == 200){
                 alert(res.data.message);
                 localStorage.setItem('token', res.data.token);
-                navigate("/dashboard");
+                navigate("/");
                 return;
             }
 

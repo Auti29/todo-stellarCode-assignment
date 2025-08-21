@@ -2,20 +2,13 @@ import type { Dispatch, SetStateAction } from "react";
 import type { TodoInterface } from "../../pages/Dashboard";
 import Todo from "./Todo";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import { NotebookPen } from "lucide-react";
+import { NotebookPenIcon } from "lucide-react";
 const BE_URL = import.meta.env.VITE_BE_API_URL;
 
 
 export default function CurrentTodos({todos, setTodos}: {todos: TodoInterface[], setTodos: Dispatch<SetStateAction<TodoInterface[]>>}) {
-    const navigate = useNavigate();
     async function handleDeleteTodo(todoId: string) {
         const token = localStorage.getItem('token');
-            if(!token){
-            alert("signin first to access this endpoint!!");
-            navigate("/signin");
-            return;
-        }
         try{
             
             const res = await axios.delete(`${BE_URL}/api/v1/todos/${todoId}`, {
@@ -52,7 +45,7 @@ export default function CurrentTodos({todos, setTodos}: {todos: TodoInterface[],
             </div>
             :
             <div className="flex flex-col justify-center items-center absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2  ">
-                <span className="text-xl font-bold text-gray-600"><NotebookPen size={50}/></span>
+                <span className="text-xl font-bold text-gray-600"><NotebookPenIcon size={50}/></span>
                 <h1 className="text-2xl font-bold text-gray-600">
                     Add todos to get started!
                 </h1>

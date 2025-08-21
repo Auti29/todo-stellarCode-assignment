@@ -1,8 +1,33 @@
+import axios from "axios";
 import { LogOutIcon, User } from "lucide-react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+const BE_URL = import.meta.env.VITE_BE_API_URL;
 
-export default function TopBar({username}: {username: string}) {
+
+export default function TopBar() {
+    const [username, setUsername] = useState<string>("");
     const navigate = useNavigate();
+
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+
+        async function fetchUser() {
+            const res = await axios.get(`${BE_URL}/api/v1/user`, {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`  
+                }
+            });
+            const data = res.data;
+            setUsername(data.user.username);
+        }
+
+        fetchUser();
+
+    }, [navigate]);
+
+
     return (
         <div className="h-fit border-2 flex justify-between items-center shadow-lg border-gray-300 p-2">
         <div className="flex justify-center items-center w-fit p-2 m-1">
