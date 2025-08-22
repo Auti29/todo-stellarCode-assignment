@@ -37,14 +37,25 @@ export default function Signin() {
                 return;
             }
 
-            alert(res.data.message);
-            return;
-        }catch(err){
-            console.log("Error occured: ", err);
-            return;
-        }
+           
+        }catch (err) {
+            if (axios.isAxiosError(err)) {
+            const status = err.response?.status;
 
+            if (status === 404) {
+                alert("No user exists with these credentials, register yourself to move forward!");
+                navigate("/signup");
+            } else if (status === 401) {
+                alert("Invalid username or password.");
+            } else {
+                alert("Something went wrong. Please try again.");
+            }
+            } else {
+                console.log("Unexpected error:", err);
+            }
         }
+    }
+
 
     return (
         <div className="border border-slate-200 rounded-xl flex flex-col w-[23vw] relative p-4 pb-7 justify-center items-center shadow-lg">

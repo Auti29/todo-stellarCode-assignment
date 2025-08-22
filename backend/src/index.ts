@@ -75,7 +75,7 @@ app.post('/api/v1/signin', async (req: Request, res: Response) => {
         });
     
         if(!user){
-            return res.status(400).json({
+            return res.status(404).json({
                 message: "no user found!! register user!!"
             });
         }

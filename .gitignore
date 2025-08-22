@@ -1,0 +1,71 @@
+# ────────────────
+# Dependencies
+# ────────────────
+node_modules/
+**/node_modules/
+
+# ────────────────
+# Build outputs
+# ────────────────
+dist/
+dist-ssr/
+build/
+out/
+
+# ────────────────
+# Environment & config
+# ────────────────
+.env
+.env.*        # For multiple environments (.env.local, .env.development, etc.)
+*.local
+*.secret
+*.bak
+
+# ────────────────
+# Logs
+# ────────────────
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# ────────────────
+# OS / System
+# ────────────────
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# ────────────────
+# IDE / Editors
+# ────────────────
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# ────────────────
+# Testing / Coverage
+# ────────────────
+coverage/
+.nyc_output/
+.cypress/
+playwright-report/
+test-results/
+
+# ────────────────
+# Misc
+# ────────────────
+*.pid
+*.seed
+*.pid.lock
+*.tgz
+*.tar.gz
+*.zip
