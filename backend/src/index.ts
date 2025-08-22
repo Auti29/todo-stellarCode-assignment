@@ -1,5 +1,6 @@
 import express from "express";
 import type {Request, Response} from "express";
+import type { VercelRequest, VercelResponse } from "@vercel/node";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import bcrypt from "bcrypt";
@@ -244,20 +245,44 @@ app.delete('/api/v1/todos/:id', authMiddleware, async(req: Request, res: Respons
 })
 
 
-main();
-async function main() {
-    if(!DB_CONN_URL){
-        console.error("db url missing!!");
-        return;
-    }
-
+async function connectDB() {
+  if (!DB_CONN_URL) {
+    console.error("DB_CONN_URL is missing!");
+    return;
+  }
+  try {
     await mongoose.connect(DB_CONN_URL);
-
-    if(!PORT){
-        console.error("no port env variable found");
-        return;
-    }
-    app.listen(PORT, () => {
-        console.log("connected");
-    })
+    console.log("MongoDB connected");
+  } catch (err) {
+    console.error("MongoDB connection failed", err);
+  }
 }
+connectDB();
+
+export default (req: VercelRequest, res: VercelResponse) => {
+  app(req as any, res as any);
+};
+
+
+
+
+
+
+
+// main();
+// async function main() {
+//     if(!DB_CONN_URL){
+//         console.error("db url missing!!");
+//         return;
+//     }
+
+//     await mongoose.connect(DB_CONN_URL);
+
+//     if(!PORT){
+//         console.error("no port env variable found");
+//         return;
+//     }
+//     app.listen(PORT, () => {
+//         console.log("connected");
+//     })
+// }
