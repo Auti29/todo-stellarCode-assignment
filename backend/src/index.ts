@@ -260,14 +260,8 @@ app.delete('/api/v1/todos/:id', authMiddleware, async(req: Request, res: Respons
 // connectDB();
 
 // export default (req: VercelRequest, res: VercelResponse) => {
-//   app(req as any, res as any);
+//   return (app as any)(req, res);
 // };
-
-
-
-
-
-
 
 main();
 async function main() {
