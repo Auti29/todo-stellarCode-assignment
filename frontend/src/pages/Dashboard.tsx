@@ -62,7 +62,7 @@ export default function Dashboard() {
             <div className="mt-5">
                 <TodosSection setToastMessage={setToastMessage} todos={todos} setTodos={setTodos}/>
             </div>
-            <ToastContainer />
+            <ToastContainer theme="dark"/>
         </div>
     )
 }
