@@ -6,17 +6,17 @@ import axios from "axios";
 const BE_URL = import.meta.env.VITE_BE_API_URL;
 
 
-export default function TodosSection({todos, setTodos}: {todos: TodoInterface[], setTodos: Dispatch<SetStateAction<TodoInterface[]>>}) {
+export default function TodosSection({todos, setTodos, setToastMessage}: {todos: TodoInterface[], setTodos: Dispatch<SetStateAction<TodoInterface[]>>, setToastMessage: Dispatch<SetStateAction<string | null>>}) {
     const [title, setTitle] = useState<string>("");
     const [description , setDescription] = useState<string>("");
 
     async function handleAddtodo() {
         if(title.length == 0){
-            alert("title is mandatory!!");
+            setToastMessage("title is mandatory!!");
             return;
         }
         if(description.length == 0){
-            alert("description is mandatory!!");
+            setToastMessage("description is mandatory!!");
             return;
         }
         const token = localStorage.getItem('token');
@@ -37,6 +37,7 @@ export default function TodosSection({todos, setTodos}: {todos: TodoInterface[],
             }
 
             setTodos(prev => prev = [...prev, res.data.createdTodo]);
+            setToastMessage(`New todo added: ${res.data.createdTodo.title}`);
             setTitle("");
             setDescription("");
 

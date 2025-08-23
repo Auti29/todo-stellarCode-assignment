@@ -6,22 +6,31 @@ import MainHeading from "./ui/MainHeading";
 import SubHeading from "./ui/SubHeading";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import type { messageI } from "../pages/SigninPage";
+import type { Dispatch } from "react";
+import type { SetStateAction } from "react";
 
 const BE_URL = import.meta.env.VITE_BE_API_URL;
 
 
-export default function Signup() {
+export default function Signup({setMessage}: {setMessage: Dispatch<SetStateAction<messageI | null>>}) {
     const [username, setUsername] = useState<string>("");
     const [password, setPassword] = useState<string >("");
     const navigate = useNavigate();
 
     async function handleSignup() {
         if(username.length <= 4){
-            alert("Username should have atleast 5 characters");
+            setMessage({
+                messageToast: "username should atleast have 5 characters", 
+                status: 404
+            })
             return;
         }
         if(password.length <= 4){
-            alert("Password should be atleast 5 characters long");
+            setMessage({
+                messageToast: "password must be atleast 5 characters long", 
+                status: 404
+            });
             return;
         }
 
@@ -37,7 +46,10 @@ export default function Signup() {
                 return;
             }
 
-            alert(res.data.message);
+            setMessage({
+                messageToast: res.data.message, 
+                status: 404
+            });
             return;
         }catch(err){
             console.log("error occured: ", err);

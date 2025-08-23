@@ -1,4 +1,5 @@
 import express from "express";
+// import type { VercelRequest, VercelResponse } from "@vercel/node";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import bcrypt from "bcrypt";
@@ -57,7 +58,6 @@ app.post('/api/v1/signin', async (req, res) => {
             username
         });
         if (!user) {
-            console.log("reached");
             return res.status(404).json({
                 message: "no user found!! register user!!"
             });
@@ -192,6 +192,22 @@ app.delete('/api/v1/todos/:id', authMiddleware, async (req, res) => {
         });
     }
 });
+// async function connectDB() {
+//   if (!DB_CONN_URL) {
+//     console.error("DB_CONN_URL is missing!");
+//     return;
+//   }
+//   try {
+//     await mongoose.connect(DB_CONN_URL);
+//     console.log("MongoDB connected");
+//   } catch (err) {
+//     console.error("MongoDB connection failed", err);
+//   }
+// }
+// connectDB();
+// export default (req: VercelRequest, res: VercelResponse) => {
+//   return (app as any)(req, res);
+// };
 main();
 async function main() {
     if (!DB_CONN_URL) {

@@ -6,22 +6,33 @@ import AuthButtonComponent from "./ui/AuthButtonComponent";
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import type { Dispatch } from "react";
+import type { SetStateAction } from "react";
+import type { messageI } from "../pages/SigninPage";
 
 
 const BE_URL = import.meta.env.VITE_BE_API_URL;
 
-export default function Signin() {
+export default function Signin({setMessage}: {setMessage: Dispatch<SetStateAction<messageI | null>>}) {
         const [username, setUsername] = useState<string >("");
         const [password, setPassword] = useState<string >("");
         const navigate = useNavigate();
 
         async function handleSignin() {
         if(username.length <= 4){
-            alert("Username should have atleast 5 characters");
+            setMessage({
+                messageToast: "username should atleast have 5 characters", 
+                status: 404
+            })
             return;
         }
         if(password.length <= 4){
-            alert("Password should be atleast 5 characters long");
+            setMessage(
+                {
+                    messageToast: "Wrong password/username", 
+                    status: 404
+                }
+            );
             return;
         }
         try{
@@ -46,7 +57,10 @@ export default function Signin() {
                 alert("No user exists with these credentials, register yourself to move forward!");
                 navigate("/signup");
             } else if (status === 401) {
-                alert("Invalid username or password.");
+                setMessage({
+                    messageToast: "Invalid username or password.", 
+                    status: 401
+                });
             } else {
                 alert("Something went wrong. Please try again.");
             }
