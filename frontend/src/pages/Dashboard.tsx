@@ -21,21 +21,23 @@ export default function Dashboard() {
     const [toastMessage, setToastMessage] = useState<string | null>(null);
     const navigate = useNavigate();
 
-    useEffect(() => {
-          if(toastMessage){
-        if(toastMessage.split(' ')[0] === "New"){
-            toast.success(toastMessage, {
-            position: 'top-right',
-    });
-        }
-        else{
-            toast.info(toastMessage, {
-                position: 'top-right',
-            });
-        }
+    useEffect(() => { 
+        if(toastMessage){
+      if(toastMessage.split(' ')[0] === "New"){
+          toast.success(toastMessage, {
+          position: 'top-right',
+  });
+      }
+      else{
+          toast.info(toastMessage, {
+              position: 'top-right',
+          });
+      }
 
-    }
-    }, [toastMessage]);
+  }
+
+}, [toastMessage]);
+
 
     useEffect(() => {
         const token = localStorage.getItem('token');
