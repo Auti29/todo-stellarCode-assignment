@@ -21,7 +21,8 @@ export default function Dashboard() {
     const [toastMessage, setToastMessage] = useState<string | null>(null);
     const navigate = useNavigate();
 
-    if(toastMessage){
+    useEffect(() => {
+          if(toastMessage){
         if(toastMessage.split(' ')[0] === "New"){
             toast.success(toastMessage, {
             position: 'top-right',
@@ -34,6 +35,7 @@ export default function Dashboard() {
         }
 
     }
+    }, [toastMessage]);
 
     useEffect(() => {
         const token = localStorage.getItem('token');
