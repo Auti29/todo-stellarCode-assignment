@@ -280,3 +280,12 @@ async function main() {
         console.log("connected");
     })
 }
+
+
+
+
+    // "build": "rimraf dist && tsc",
+    // "ts.check": "tsc --project tsconfig.json",
+    // "add-build": "git add dist",
+    // "start": "node dist/index.js",
+    // "dev": "npm run build && npm run start"

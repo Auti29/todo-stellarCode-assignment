@@ -1,5 +1,21 @@
 {
-  "dependencies": {
-    "pre-commit": "^1.2.2"
-  }
+  "name": "todo-assignment",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Auti29/todo-stellarCode-assignment.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Auti29/todo-stellarCode-assignment/issues"
+  },
+  "homepage": "https://github.com/Auti29/todo-stellarCode-assignment#readme"
 }
